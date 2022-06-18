@@ -9,6 +9,7 @@ form = cgi.FieldStorage()
 #=--------- Calculo Area ---------+
 perimetro = float(form.getvalue('perimetro'))
 apotema = float(form.getvalue('apotema'))
+lado = float(form.getvalue('lado'))
 
 pentagono_area = perimetro * apotema
 
@@ -17,13 +18,12 @@ funções.print_header(title)
 print("<h1>Pentagono</h1><hr>")
 print("<p>Perimetro: {:.1f}".format(perimetro))
 print("<p>Apótema: {:.1f}".format(apotema))
+print("<p>Lado: {:.1f}".format(lado))
 print("<p>Área do Pentagono: {:.1f}".format(pentagono_area))
 print("<a href=\'../pentagono.html\'><button class='buttom'>Novo Calculo</button></a>")
 funções.print_footer()
 
 #=--------- Calculo Perimetro ---------+
-lado = float(form.getvalue('lado'))
-
 pentagono_peri = lado * 5
 
 title = "Pentagono"

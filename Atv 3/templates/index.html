@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <title>Pesquisa CEP</title>
+    </head>
+
+    <body>
+
+        <Label>Logradouro:</label><strong><span id="logradouro"></span></strong><br/>
+        <Label>Complemento:</label> <strong><span id="complemento"></span></strong><br/>
+        <Label>Bairro:</label> <strong><span id="bairro"></span></strong><br/>
+        <Label>Localidade:</label> <strong><span id="localidade"></span></strong><br/>
+        <Label>UF:</Label><strong><span id="uf"></span></strong><br/>
+        <label>IBGE:</label><strong><span id="ibge"></span></strong><br/>
+        <label>GIA:</label><strong><span id="gia"></span></strong><br/>
+        <label>DDD:</label><strong><span id="ddd"></span></strong><br/>
+        <label>SIAFI:</label><strong><span id="siafi"></span></strong>
+
+        <hr>
+        
+        <div class="input">
+            <input type="text" name="cep" id="cep">
+        </div>
+        
+        <div class="btn">
+            <button type="button" id="pesquisarCEP">Pesquisar CEP</button>
+        </div>
+
+        
+        <span id="loading" style="display:none;">[Carregando...]</span>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            $("#pesquisarCEP").on("click", function(){
+
+                var loading = $("#loading");
+                var cep = $("#cep").val().replace(/[^0-9]/g,'');
+
+                loading.show();
+                if(cep !== "" && cep.length == 8){
+
+                    $.ajax({
+                        url: "https://viacep.com.br/ws/"+cep+"/json/",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+
+                            if(data.erro !== undefined){
+                                alert("CEP inválido ou não encontrado");
+                            }else{
+                                $("#logradouro").text(data.logradouro);
+                                $("#complemento").text(data.complemento);
+                                $("#bairro").text(data.bairro);
+                                $("#localidade").text(data.localidade);
+                                $("#uf").text(data.uf);
+                                $("#ibge").text(data.ibge);
+                                $("#gia").text(data.gia);
+                                $("#ddd").text(data.ddd);
+                                $("#siafi").text(data.siafi);
+                            }
+                        },
+                        error: function(data){
+                            alert("Algum erro ocorreu, consulte o log.");
+                        },
+                        complete: function(){
+                            loading.hide();
+                        }
+                    });
+
+                }else{
+                    alert("CEP deve conter 8 digitos");
+                }
+            });
+        </script>
+    </body>
+</html>

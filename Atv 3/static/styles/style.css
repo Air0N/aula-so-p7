@@ -1,0 +1,27 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+
+body {
+    background-image: url(pngwing.com.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y:-7%;
+}
+
+label {
+    font-size: larger;
+}
+
+.input {
+    
+    text-align: center;
+}
+
+.btn {
+    text-align: center;
+
+}
